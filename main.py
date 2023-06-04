@@ -10,7 +10,6 @@ type_video = [
 ]
 
 FONT_PANEL = ("Helvetica, 20 bold")
-
 url_path_prev = './music'
 
 # Panel
@@ -31,11 +30,9 @@ ent_url.pack(side=tk.LEFT,padx=0,pady=10)
 def download():
     url = str(ent_url.get())
 
-    # yt = pytube.YouTube(url,use_oauth=True)
-    # title = yt.title
-    # st = yt.streams.get_highest_resolution()
-    # st.download(url_path_prev)
-    # os.rename(os.path.join(url_path_prev,title+'.mp4'), os.path.join(path_video,title+'.mp4'))
+    yt = pytube.YouTube(url, use_oauth=True, allow_oauth_cache=True)
+    st = yt.streams.get_highest_resolution()
+    st.download(url_path_prev)
 
     messagebox.showinfo("Éxito","El video se descargo exitosamente")
 
@@ -45,8 +42,9 @@ variable.set(type_video[0])
 opt_type = tk.OptionMenu(fr_convert,variable,*type_video)
 opt_type.pack(side=tk.LEFT)
 opt_type.configure(background='#123546',foreground='white',font=("Helvetica, 15 "),pady=5)
+
 # Button download
-btn_download = tk.Button(fr_convert,width=20,height=2,text="Convertir",font=("Helvetica, 10 bold"),background="red",foreground="white",command=download,relief=tk.FLAT)
+btn_download = tk.Button(fr_convert,width=20,height=2,text="Descargar",font=("Helvetica, 10 bold"),background="red",foreground="white",command=download,relief=tk.FLAT)
 btn_download.pack(side=tk.LEFT)
 fr_convert.pack()
 
